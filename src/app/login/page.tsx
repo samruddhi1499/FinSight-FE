@@ -1,6 +1,5 @@
 "use client";
 import { isNotEmpty } from "../../util/validation.js"; 
-
 import { useActionState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
@@ -17,9 +16,8 @@ interface FormState {
   enteredvalues: EnteredValues;
   isSubmitted?: boolean;
   serverError?: string;
+  detailsExisits: boolean;
 }
-
-
 
 async function signinAction(
   prevFormState: FormState | undefined,
@@ -46,6 +44,7 @@ async function signinAction(
       errors,
       enteredvalues: { username, password },
       isSubmitted: false,
+      detailsExisits:false
     };
   }
 
@@ -59,26 +58,27 @@ async function signinAction(
       
     });
 
-    const data = await res.json();
+  const data = await res.json();
 
     if (!res.ok) {
       return {
         errors: {},
         enteredvalues: { username, password },
         isSubmitted: false,
-        serverError: data.error || "Signup failed",
+        serverError: data.message ,
+        detailsExisits:false
       };
     }
 
     console.log(data)
 
-    // Success: clear errors and maybe reset form or redirect later
+
     return {
       errors: {},
       enteredvalues: { username: "", password: "" },
       isSubmitted: true,
-
       serverError: "",
+      detailsExisits:data.details,
     };
   } catch (e) {
     
@@ -88,6 +88,7 @@ async function signinAction(
       enteredvalues: { username, password },
       isSubmitted: false,
       serverError: "Network error, please try again.",
+      detailsExisits:false
     };
   }
 }
@@ -98,16 +99,26 @@ const Login = () => {
 
     const [formState, formAction] = useActionState(signinAction, {
       errors:{"Username" : "", "Password":""} ,
-      enteredvalues: { username: "", password: ""}
+      enteredvalues: { username: "", password: ""}, 
+      detailsExisits: false
+   
     });
 
       const router = useRouter();
     
       useEffect(() => {
         if (formState.isSubmitted) {
-          router.push("/dashboard");
+     
+          if(formState.detailsExisits){
+         
+            router.push("/dashboard");
+          }
+          else{
+               ;
+            router.push("/onboarding");
+          }
         }
-      }, [formState.isSubmitted, router]);
+      }, [formState.isSubmitted, formState.detailsExisits, router]);
     
 
     return(

@@ -4,50 +4,33 @@
 
 import React, { useState, useEffect } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { MonthlyExpense, MonthlyExpensesByCategory } from '@/app/dashboard/page';
 
-const categoryOptions = ['Dining Out', 'Groceries', 'Transport'];
 
-const exampleMonthlyExpenses = {
-  'Dining Out': [
-    { month: 'Jan', amount: 400 },
-    { month: 'Feb', amount: 380 },
-    { month: 'Mar', amount: 450 },
-    { month: 'Apr', amount: 420 },
-  ],
-  Groceries: [
-    { month: 'Jan', amount: 480 },
-    { month: 'Feb', amount: 510 },
-    { month: 'Mar', amount: 500 },
-    { month: 'Apr', amount: 530 },
-  ],
-  Transport: [
-    { month: 'Jan', amount: 130 },
-    { month: 'Feb', amount: 140 },
-    { month: 'Mar', amount: 150 },
-    { month: 'Apr', amount: 160 },
-  ],
-};
 
-type Props = {
-  category: string | null;
-};
+interface Props {
+ monthlyExpsneByCategoryData: MonthlyExpensesByCategory
+}
 
-export default function ExpenseCategoryBarChart({ category }: Props) {
-  const [selectedCategory, setSelectedCategory] = useState(category || categoryOptions[0]);
-  const [data, setData] = useState(exampleMonthlyExpenses[selectedCategory]);
+export default function ExpenseCategoryBarChart({ monthlyExpsneByCategoryData }: Props) {
+  const [selectedCategory, setSelectedCategory] = useState(Object.keys(monthlyExpsneByCategoryData)[0]);
+  const [data, setData] = useState(monthlyExpsneByCategoryData[selectedCategory]);
 
   useEffect(() => {
-    if (category != null) {
-      setSelectedCategory(category);
-      setData(exampleMonthlyExpenses[category]);
+    if (monthlyExpsneByCategoryData != null) {
+      setSelectedCategory(Object.keys(monthlyExpsneByCategoryData)[0]);
+      setData(monthlyExpsneByCategoryData[Object.keys(monthlyExpsneByCategoryData)[0]]);
     }
-  }, [category]);
+  }, [monthlyExpsneByCategoryData]);
+
+  const categoryOptions = Object.keys(monthlyExpsneByCategoryData);
 
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const newCategory = e.target.value;
     setSelectedCategory(newCategory);
-    setData(exampleMonthlyExpenses[newCategory]);
+    setData(monthlyExpsneByCategoryData[newCategory]);
   };
+
 
   return (
     <div className="rounded-xl text-stone-600  bg-gray-50 p-4 shadow-sm">

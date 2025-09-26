@@ -1,21 +1,22 @@
 // src/app/ui/dashboard/ExceededCapsList.tsx
 
 import React from 'react';
+import { monthlyExceedDataType } from '@/app/dashboard/page';
 
-type Props = {
-  onSelectCategory: (category: string) => void;
-};
+interface Props  {
+  monthlyExceedData: monthlyExceedDataType[]
+}
 
-const exampleData = [
-  { category: 'Dining Out', cap: 300, spent: 450 },
-  { category: 'Groceries', cap: 500, spent: 520 },
-  { category: 'Transport', cap: 150, spent: 180 },
-];
+// const exampleData = [
+//   { category: 'Dining Out', cap: 300, spent: 450 },
+//   { category: 'Groceries', cap: 500, spent: 520 },
+//   { category: 'Transport', cap: 150, spent: 180 },
+// ];
 
-export default function ExceededCapsList({ onSelectCategory }: Props) {
-  const exceeding = exampleData
-    .filter(({ spent, cap }) => spent > cap)
-    .sort((a, b) => (b.spent - b.cap) - (a.spent - a.cap));
+export default function ExceededCapsList({ monthlyExceedData }: Props) {
+  // const exceeding = exampleData
+  //   .filter(({ spent, cap }) => spent > cap)
+  //   .sort((a, b) => (b.spent - b.cap) - (a.spent - a.cap));
 
   return (
     <div className="rounded-xl text-stone-600  bg-gray-50 p-4 shadow-sm">
@@ -23,17 +24,17 @@ export default function ExceededCapsList({ onSelectCategory }: Props) {
       <h2 className="text-xl font-semibold mb-4">
         Categories Exceeding Caps
       </h2>
-      {exceeding.length === 0 && <p>No categories exceeding caps.</p>}
+      {monthlyExceedData.length === 0 && <p>No categories exceeding caps.</p>}
       <ul>
-        {exceeding.map(({ category, spent, cap }) => (
+        {monthlyExceedData.map(({ category, capAmount, spentAmount }) => (
           <li
             key={category}
-            onClick={() => onSelectCategory(category)}
+           
             className="cursor-pointer p-2 rounded hover:bg-teal-100 flex justify-between"
           >
             <span>{category}</span>
             <span className="font-semibold text-red-600">
-              ${spent} / ${cap}
+              ${spentAmount} / ${capAmount}
             </span>
           </li>
         ))}

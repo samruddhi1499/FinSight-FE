@@ -4,18 +4,21 @@ import EditCapModal from './EditCapModal';
 
 interface RecurringCategories {
   categoryId:number,
-  categoryName: string;
+  category: string;
   capAmount: number;
 }
 interface Props {
   recurringCategory: RecurringCategories[];
+  errorCode: string;
 }
 
 
 
-export default function TableSection({recurringCategory}: Props) {
+export default function TableSection({recurringCategory, errorCode}: Props) {
 
     const endpoint = process.env.NEXT_PUBLIC_API_URL;
+
+    
 
      
 
@@ -29,7 +32,7 @@ export default function TableSection({recurringCategory}: Props) {
     
     setIsModalOpen(false);
     try {
-      const response = await fetch(`${endpoint}/api/UserDetails/update-categories`, {
+      const response = await fetch(`${endpoint}/api/RecurringCategories/update-categories`, {
         method: 'PUT', // or PUT depending on your API
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
@@ -59,7 +62,7 @@ export default function TableSection({recurringCategory}: Props) {
 
   const handleDelete = async(id:number) =>{
      try {
-      const response = await fetch(`${endpoint}/api/UserDetails/delete-categories/${id}`, {
+      const response = await fetch(`${endpoint}/api/RecurringCategories/delete-categories/${id}`, {
         method: 'Delete', // or PUT depending on your API
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
@@ -104,13 +107,13 @@ export default function TableSection({recurringCategory}: Props) {
             </tr>
         </thead>
         
-        <tbody>
+        {errorCode != "400" ? (<tbody>
             {recurringCategory.map((cat) => 
             
             <tr key={cat.categoryId} className="bg-white border-b  dark:border-gray-200 border-gray-200">
                
                 <th scope="row" className="px-6 py-4 font-medium text-center text-gray-900 whitespace-nowrap ">
-                    {cat.categoryName}
+                    {cat.category}
                 </th>
                 <td className="px-6 py-4 text-gray-500 text-center">
                    {`$${cat.capAmount}`}
@@ -120,7 +123,7 @@ export default function TableSection({recurringCategory}: Props) {
                     <button onClick={() => {setIsModalOpen(true);
                             setUpdateCategory(prev => ({
                                 ...prev,
-                               category: cat.categoryName,
+                               category: cat.category,
                                capAmount: cat.capAmount
                                 }));
                     }}  className="font-medium text-blue-600 pr-1 dark:text-blue-500 hover:underline">Edit</button>
@@ -133,7 +136,15 @@ export default function TableSection({recurringCategory}: Props) {
                 </td>
             </tr>
             )}
-        </tbody>
+        </tbody>):
+      ( <tbody>
+         <tr>
+      <td colSpan={3} className="text-center p-4 text-gray-500">
+          Add Recurring Categories
+      </td>
+    </tr>
+    </tbody>)
+        }
         
     
         </table>

@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import SideNav from '@/app/ui/dashboard/SideNav';
 import { isNotEmpty, isEqualToOtherValue, hasMinLength } from "../../../util/validation.js"; 
+import { useUser } from '../../../store/UserContext';
 
 const endpoint = process.env.NEXT_PUBLIC_API_URL;
 
@@ -22,12 +23,7 @@ function Avatar({ name }: { name: string }) {
 
 export default function ProfilePage() {
   
-  const [userDetails,setUserDetails] = useState({
-    username : " ",
-    salary: 0.0,
-    balance: 0.0
-
-  });
+  const { userDetails, setUserDetails } = useUser();
   const [isEditing, setIsEditing] = useState(false);
 
   const [passwordDetails, setPasswordDetails] = useState({
@@ -126,14 +122,14 @@ const saveUserDetails = async () => {
     };
 
     fetchUsers();
-  }, [endpoint]);
+  }, [setUserDetails]);
 
 
 
 
   return (
     <div className="min-h-screen flex bg-gray-50">
-      <SideNav />
+      <SideNav onboarding={false} />
       <main className="flex-1 p-8 mt-14 overflow-auto mx-auto w-full">
         <div className="bg-white grid grid-cols-3 gap-2 place-items-center rounded-lg shadow-md p-4 space-y-6">
         

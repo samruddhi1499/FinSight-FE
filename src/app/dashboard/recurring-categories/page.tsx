@@ -7,7 +7,7 @@ const endpoint = process.env.NEXT_PUBLIC_API_URL;
 
 interface RecurringCategories {
   categoryId:number,
-  categoryName: string;
+  category: string;
   capAmount: number;
 }
 
@@ -21,10 +21,12 @@ export default function RecurringCategoriesPage() {
         capAmount: 0.0
     });
 
+    const [errorCode, setErrorCode] = useState<string>("");
+
     const saveCategory = async(e:React.FormEvent) =>{
 
         try {
-    const response = await fetch(`${endpoint}/api/UserDetails/add-categories`, {
+    const response = await fetch(`${endpoint}/api/RecurringCategories/add-categories`, {
       method: 'POST', // or PUT depending on your API
       headers: { 'Content-Type': 'application/json' },
       credentials: 'include',
@@ -48,7 +50,7 @@ export default function RecurringCategoriesPage() {
         
 
         const response = await fetch(
-          `${endpoint}/api/UserDetails/selected-categories`,
+          `${endpoint}/api/RecurringCategories/selected-categories`,
           {
             method: "GET",
             credentials:"include"
@@ -56,20 +58,31 @@ export default function RecurringCategoriesPage() {
         );
 
         const responseExpense = await fetch(
-          `${endpoint}/api/UserDetails/remaining-categories`,
+          `${endpoint}/api/RecurringCategories/remaining-categories`,
           {
             method: "GET",
             credentials:"include"
           }
         );
 
-        const dataExpense = await responseExpense.json()
-        const data = await response.json();
-        
-        setExpenseCategories(dataExpense);
-          setRecurringCategories(data);
+        if(!response.ok){
+          setErrorCode(`${response.status}`);
+        }
+        else{
+          const data = await response.json();
+           setRecurringCategories(data);
           console.log(data)
         
+        }
+        
+        if(!responseExpense.ok)
+          throw new Error(await responseExpense.text());
+
+        const dataExpense = await responseExpense.json()
+        
+        
+        setExpenseCategories(dataExpense);
+         
       } catch (error) {
         console.error("Error fetching bookings:", error);
       } 
@@ -83,7 +96,7 @@ export default function RecurringCategoriesPage() {
 return(
 
      <div className="min-h-screen flex bg-gray-50">
-          <SideNav />
+          <SideNav onboarding={false}/>
           <main className="flex-1 p-8 rounded-xl text-stone-600  bg-gray-50 shadow-sm overflow-auto">
             <div className='w-full '>
                 <h3 className='mb-4 text-xl text-stone-800 text-center md:text-2xl'>Add Recurring Category</h3>
@@ -124,16 +137,12 @@ return(
 
             </div>
             <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-                <TableSection recurringCategory={recurringCategories}/>
+                <TableSection errorCode = {errorCode} recurringCategory={recurringCategories}/>
             </div>
 
           </main>
 
           </div>
-
-    
-
-
 
 );
 

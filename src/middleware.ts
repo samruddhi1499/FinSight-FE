@@ -13,6 +13,9 @@ export function middleware(request: NextRequest) {
   }
   const token = request.cookies.get('jwt_token')?.value
   const onboardingRequired = request.cookies.get('onboarding_required')?.value === "true"
+
+console.log('Pathname:', pathname, 'Token:', token, 'Onboarding:', onboardingRequired);
+
   // Block /dashboard if onboarding required, force /onboarding access
   if (pathname.startsWith('/dashboard') && onboardingRequired) {
     return NextResponse.redirect(new URL('/onboarding', request.url))
@@ -27,5 +30,5 @@ export function middleware(request: NextRequest) {
   return NextResponse.next()
 }
 export const config = {
-  matcher: ['/dashboard/:path*', '/onboarding/:path*'],
+  matcher: ['/dashboard', '/dashboard/:path*', '/onboarding', '/onboarding/:path*'],
 }

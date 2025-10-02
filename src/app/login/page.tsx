@@ -70,7 +70,7 @@ async function signinAction(
       };
     }
 
-    console.log(data)
+    console.log(data.isOnboarded)
 
 
     return {
@@ -78,7 +78,7 @@ async function signinAction(
       enteredvalues: { username: "", password: "" },
       isSubmitted: true,
       serverError: "",
-      detailsExisits:data.details,
+      detailsExisits:data.isOnboarded,
     };
   } catch (e) {
     
@@ -114,7 +114,7 @@ const Login = () => {
             router.push("/dashboard");
           }
           else{
-               ;
+               
             router.push("/onboarding");
           }
         }

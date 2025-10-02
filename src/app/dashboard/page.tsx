@@ -52,7 +52,7 @@ export default function DashboardPage() {
   useEffect(() => {
       const fetchUsers = async () => {
         try {
-          const response = await fetch(`${endpoint}/api/Dashboard/data`, {
+          const response = await fetch(`/api/Dashboard/data`, {
             credentials: "include",
           });
           if (!response.ok) throw new Error("Failed to fetch user details");

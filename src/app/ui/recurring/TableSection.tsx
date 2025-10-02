@@ -32,7 +32,7 @@ export default function TableSection({recurringCategory, errorCode}: Props) {
     
     setIsModalOpen(false);
     try {
-      const response = await fetch(`${endpoint}/api/RecurringCategories/update-categories`, {
+      const response = await fetch(`/api/RecurringCategories/update-categories`, {
         method: 'PUT', // or PUT depending on your API
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
@@ -62,7 +62,7 @@ export default function TableSection({recurringCategory, errorCode}: Props) {
 
   const handleDelete = async(id:number) =>{
      try {
-      const response = await fetch(`${endpoint}/api/RecurringCategories/delete-categories/${id}`, {
+      const response = await fetch(`/api/RecurringCategories/delete-categories/${id}`, {
         method: 'Delete', // or PUT depending on your API
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',

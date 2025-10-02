@@ -58,7 +58,7 @@ async function signupAction(
 
   try {
     // Example API call -- replace with your actual API
-    const res = await fetch(`${endpoint}/api/Auth/register`, {
+    const res = await fetch(`/api/Auth/register`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ username, password }),

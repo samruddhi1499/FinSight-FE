@@ -31,7 +31,7 @@ export default function SideNav({ onboarding }: { onboarding: boolean }) {
   const handleLogout = async() => {
      
         try {
-          const response = await fetch(`${endpoint}/api/Auth/logout`, {
+          const response = await fetch(`/api/Auth/logout`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             credentials: "include",

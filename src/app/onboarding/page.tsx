@@ -22,7 +22,7 @@ export default function Onboarding() {
 
     // Optionally POST the data to your backend API
     try {
-      const response = await fetch(`${endpoint}/api/UserDetails/profile-data`, {
+      const response = await fetch(`/api/UserDetails/profile-data`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: "include",

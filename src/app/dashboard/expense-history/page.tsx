@@ -36,7 +36,7 @@ export default function ExpenseHistory() {
             
     
             const response = await fetch(
-              `${endpoint}/api/Expense/expense-history`,
+              `/api/Expense/expense-history`,
               {
                 method: "GET",
                 credentials:"include"

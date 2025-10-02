@@ -45,7 +45,7 @@ export default function ProfilePage() {
       }
 
     try {
-      const response = await fetch(`${endpoint}/api/Auth/change-password`, {
+      const response = await fetch(`/api/Auth/change-password`, {
         method: 'POST', // or PUT depending on your API
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
@@ -72,7 +72,7 @@ export default function ProfilePage() {
 
 const saveUserDetails = async () => {
   try {
-    const response = await fetch(`${endpoint}/api/UserDetails/update-profile-data`, {
+    const response = await fetch(`/api/UserDetails/update-profile-data`, {
       method: 'PUT', // or PUT depending on your API
       headers: { 'Content-Type': 'application/json' },
       credentials: 'include',
@@ -99,7 +99,7 @@ const saveUserDetails = async () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await fetch(`${endpoint}/api/UserDetails/profile`, {
+        const response = await fetch(`/api/UserDetails/profile`, {
           credentials: "include",
         });
 

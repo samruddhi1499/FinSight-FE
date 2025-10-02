@@ -26,7 +26,7 @@ export default function RecurringCategoriesPage() {
     const saveCategory = async(e:React.FormEvent) =>{
 
         try {
-    const response = await fetch(`${endpoint}/api/RecurringCategories/add-categories`, {
+    const response = await fetch(`/api/RecurringCategories/add-categories`, {
       method: 'POST', // or PUT depending on your API
       headers: { 'Content-Type': 'application/json' },
       credentials: 'include',
@@ -50,7 +50,7 @@ export default function RecurringCategoriesPage() {
         
 
         const response = await fetch(
-          `${endpoint}/api/RecurringCategories/selected-categories`,
+          `/api/RecurringCategories/selected-categories`,
           {
             method: "GET",
             credentials:"include"
@@ -58,7 +58,7 @@ export default function RecurringCategoriesPage() {
         );
 
         const responseExpense = await fetch(
-          `${endpoint}/api/RecurringCategories/remaining-categories`,
+          `/api/RecurringCategories/remaining-categories`,
           {
             method: "GET",
             credentials:"include"

@@ -39,7 +39,7 @@ export default function Modal({ id, isOpen, onClose }: ModalProps) {
             
     
             const response = await fetch(
-              `${endpoint}/api/Expense/get-expense/${id}`,
+              `/api/Expense/get-expense/${id}`,
               {
                 method: "GET",
                 credentials:"include"
@@ -66,7 +66,7 @@ export default function Modal({ id, isOpen, onClose }: ModalProps) {
 
   const handleDelete = async(id:number) =>{
      try {
-      const response = await fetch(`${endpoint}/api/Expense/delete-expense/${id}`, {
+      const response = await fetch(`/api/Expense/delete-expense/${id}`, {
         method: 'Delete', // or PUT depending on your API
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
@@ -87,7 +87,7 @@ export default function Modal({ id, isOpen, onClose }: ModalProps) {
   const handleUpdateExpense = async(id:number, amount:number) =>{
               
                       try {
-                  const response = await fetch(`${endpoint}/api/Expense/update-expense/${id}`, {
+                  const response = await fetch(`/api/Expense/update-expense/${id}`, {
                     method: 'PUT', // or PUT depending on your API
                     headers: { 'Content-Type': 'application/json' },
                     credentials: 'include',

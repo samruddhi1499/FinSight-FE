@@ -68,7 +68,7 @@ export default function Expense() {
           try {
             
             const responseCheck = await fetch(
-              `${endpoint}/api/Expense/check-complete`,
+              `/api/Expense/check-complete`,
               {
                 method: "GET",
                 credentials:"include"
@@ -80,7 +80,7 @@ export default function Expense() {
 
               setIsDisabled(false);
                 const response = await fetch(
-              `${endpoint}/api/Expense/expense`,
+              `/api/Expense/expense`,
               {
                 method: "GET",
                 credentials:"include"
@@ -97,7 +97,7 @@ export default function Expense() {
             }
 
                const responseRecurring = await fetch(
-              `${endpoint}/api/RecurringCategories/selected-categories`,
+              `/api/RecurringCategories/selected-categories`,
               {
                 method: "GET",
                 credentials:"include"
@@ -130,7 +130,7 @@ export default function Expense() {
       const handleDone = async() => {
 
         try {
-          const response = await fetch(`${endpoint}/api/Expense/mark-complete`, {
+          const response = await fetch(`/api/Expense/mark-complete`, {
             method: 'PUT', // or PUT depending on your API
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include'
@@ -148,7 +148,7 @@ export default function Expense() {
       const handleSaveExpense = async() =>{
       
               try {
-          const response = await fetch(`${endpoint}/api/Expense/add-expense`, {
+          const response = await fetch(`/api/Expense/add-expense`, {
             method: 'POST', // or PUT depending on your API
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include',

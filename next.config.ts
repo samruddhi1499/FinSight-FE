@@ -1,7 +1,14 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  async rewrites() {
+    return [
+      {
+        source: "/api/:path*",                       // frontend route
+        destination: "https://finsight-be.onrender.com/api/:path*", // backend API
+      },
+    ];
+  },
 };
 
 export default nextConfig;

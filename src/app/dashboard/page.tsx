@@ -40,7 +40,6 @@ export type MonthlyExpensesByCategory = {
   [category: string]: MonthlyExpense[];
 };
 export default function DashboardPage() {
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [cardData, setCardData] = useState<cardDataType[]>([]);
   const [monthlySavingsLineData, setMonthlySavingsLineData] = useState<monthlySavingsLineDataType[]>([]);
   const [monthlyGoalData, setMonthlyGoalData] = useState<monthlyGoalDataType>({
@@ -99,7 +98,13 @@ export default function DashboardPage() {
         )}
      
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-8">
+           {loading || cardData.length === 0 ? (
+          <RevenueChartSkeleton />
+        ) : (
           <MonthlySavingsLineChart monthlySavingsLineData = {monthlySavingsLineData}/>
+        )}
+     
+          
           <SavingsGoalProgressChart monthlyGoalData = {monthlyGoalData}/>
         </div>
 

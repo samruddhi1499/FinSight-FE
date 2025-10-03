@@ -4,7 +4,6 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { cookies } from 'next/headers';
 import {
   UserIcon,
   ClockIcon,
@@ -40,8 +39,7 @@ export default function SideNav({ onboarding }: { onboarding: boolean }) {
           });
     
           if (!response.ok) throw new Error('Failed to update user');
-          const cookieStore = await cookies();
-          cookieStore.delete('yourCookieName');
+      
            setTimeout(() => {
   window.location.reload();
 }, 100);

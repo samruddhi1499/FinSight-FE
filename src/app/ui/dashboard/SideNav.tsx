@@ -40,9 +40,9 @@ export default function SideNav({ onboarding }: { onboarding: boolean }) {
     
           if (!response.ok) throw new Error('Failed to update user');
       
-           setTimeout(() => {
-  window.location.reload();
-}, 100);
+//            setTimeout(() => {
+//   window.location.reload();
+// }, 100);
 
         } catch (error) {
           console.error(error);

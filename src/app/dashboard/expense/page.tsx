@@ -51,11 +51,17 @@ export default function Expense() {
 
       const [refreshKey, setRefreshKey] = useState(0);
       
-      const refreshModalContent = () => {
+   
+
+      useEffect(() => {
+     const refreshModalContent = () => {
         if (isDisabled) {
           setRefreshKey((prev) => prev + 1);
         }
       };
+  refreshModalContent();
+}, [isDisabled]);
+
 
       function toggleAdd(){
         const val = !isVisibile;
@@ -113,7 +119,6 @@ export default function Expense() {
             }
             else{
               setIsDisabled(true);
-              refreshModalContent();
             }
             
         
@@ -124,7 +129,7 @@ export default function Expense() {
         };
     
         fetchExpense();
-      }, [endpoint,refreshKey, refreshModalContent]);
+      }, [endpoint,refreshKey]);
 
       
       const handleDone = async() => {

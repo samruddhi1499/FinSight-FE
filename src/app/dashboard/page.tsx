@@ -7,6 +7,8 @@ import MonthlySavingsLineChart from '@/app/ui/dashboard/MonthlySavingsLineChart'
 import SavingsGoalProgressChart from '@/app/ui/dashboard/SavingsGoalProgressChart';
 import ExceededCapsList from '@/app/ui/dashboard/ExceededCapsList';
 import ExpenseCategoryBarChart from '@/app/ui/dashboard/ExpenseCategoryBarChart';
+import { Suspense } from 'react';
+import { RevenueChartSkeleton, CardsSkeleton } from '@/app/ui/dashboard/Skeleton';
 
 export interface cardDataType {
   title:string,
@@ -85,7 +87,10 @@ export default function DashboardPage() {
     <div className="min-h-screen flex bg-gray-50">
       <SideNav onboarding={false}/>
       <main className="flex-1 p-8 mt-6 overflow-auto">
-        <CardsSection cardData = {cardData}/>
+        <Suspense fallback={<CardsSkeleton />}>
+             <CardsSection cardData = {cardData}/>
+        </Suspense>
+     
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-8">
           <MonthlySavingsLineChart monthlySavingsLineData = {monthlySavingsLineData}/>
           <SavingsGoalProgressChart monthlyGoalData = {monthlyGoalData}/>

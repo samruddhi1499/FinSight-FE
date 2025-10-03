@@ -28,7 +28,9 @@ export default function SideNav({ onboarding }: { onboarding: boolean }) {
   const pathname = usePathname();
     const endpoint = process.env.NEXT_PUBLIC_API_URL;
 
-  const handleLogout = async() => {
+  const handleLogout = async(e: React.FormEvent) => {
+
+    e.preventDefault();
      
         try {
           const response = await fetch(`/api/Auth/logout`, {
@@ -40,9 +42,9 @@ export default function SideNav({ onboarding }: { onboarding: boolean }) {
     
           if (!response.ok) throw new Error('Failed to update user');
       
-//            setTimeout(() => {
-//   window.location.reload();
-// }, 100);
+           setTimeout(() => {
+  window.location.reload();
+}, 100);
 
         } catch (error) {
           console.error(error);

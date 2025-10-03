@@ -104,18 +104,35 @@ export default function DashboardPage() {
           <MonthlySavingsLineChart monthlySavingsLineData = {monthlySavingsLineData}/>
         )}
      
-          
+            {loading || cardData.length === 0 ? (
+          <RevenueChartSkeleton />
+        ) : (
           <SavingsGoalProgressChart monthlyGoalData = {monthlyGoalData}/>
+        )}
+          
+          
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-8">
           {/* Left block: Categories exceeding cap */}
-          <ExceededCapsList
+
+              {loading || cardData.length === 0 ? (
+          <RevenueChartSkeleton />
+        ) : (
+            <ExceededCapsList
             monthlyExceedData = {monthlyExceedData}
           />
+        )}
+        
+
+              {loading || cardData.length === 0 ? (
+          <RevenueChartSkeleton />
+        ) : (
+             <ExpenseCategoryBarChart monthlyExpsneByCategoryData = {monthlyExpsneByCategoryData} /> 
+        )}
 
           {/* Right block: Bar chart for selected category */}
-          <ExpenseCategoryBarChart monthlyExpsneByCategoryData = {monthlyExpsneByCategoryData} /> 
+       
         </div>
       </main>
     </div>

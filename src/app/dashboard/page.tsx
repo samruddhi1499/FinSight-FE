@@ -49,10 +49,13 @@ export default function DashboardPage() {
   });
   const [monthlyExceedData, setMonthlyExceedData] = useState<monthlyExceedDataType[]>([]);
   const [monthlyExpsneByCategoryData, setMonthlyExpsneByCategoryData] = useState<MonthlyExpensesByCategory>({});
-  const endpoint = process.env.NEXT_PUBLIC_API_URL;
+
+  
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
       const fetchUsers = async () => {
+        setLoading(true);
         try {
           const response = await fetch(`/api/Dashboard/data`, {
             credentials: "include",
@@ -72,6 +75,7 @@ export default function DashboardPage() {
           setMonthlyExpsneByCategoryData(data.monthlyExpsneByCategoryResult);
 
           console.log(data.monthlyExpsneByCategoryResult)
+          setLoading(false);
   
   
         } catch (e) {
@@ -81,15 +85,18 @@ export default function DashboardPage() {
       };
   
       fetchUsers();
-    }, [endpoint]);
+    }, []);
 
   return (
     <div className="min-h-screen flex bg-gray-50">
       <SideNav onboarding={false}/>
       <main className="flex-1 p-8 mt-6 overflow-auto">
-        <Suspense fallback={<CardsSkeleton />}>
-             <CardsSection cardData = {cardData}/>
-        </Suspense>
+         {/* Conditionally show skeleton if loading or no data */}
+        {loading || cardData.length === 0 ? (
+          <CardsSkeleton />
+        ) : (
+          <CardsSection cardData={cardData} />
+        )}
      
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-8">
           <MonthlySavingsLineChart monthlySavingsLineData = {monthlySavingsLineData}/>

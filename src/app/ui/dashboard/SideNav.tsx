@@ -46,6 +46,8 @@ export default function SideNav({ onboarding }: { onboarding: boolean }) {
 //   window.location.reload();
 // }, 100);
 
+ window.location.href = "/login";
+
         } catch (error) {
           console.error(error);
           alert('Error updating user');

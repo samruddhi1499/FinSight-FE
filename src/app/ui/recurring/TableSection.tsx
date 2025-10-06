@@ -158,7 +158,7 @@ export default function TableSection({ recurringCategory, errorCode }: Props) {
       </table>
 
       {/* Pagination controls */}
-      <div className="flex items-center justify-between mt-4">
+      <div className="flex items-center m-2 justify-between mt-4">
         <div className="text-sm text-gray-600">
           Showing {(currentPage - 1) * rowsPerPage + 1}-
           {Math.min(currentPage * rowsPerPage, totalItems)} of {totalItems}
@@ -180,17 +180,11 @@ export default function TableSection({ recurringCategory, errorCode }: Props) {
             Prev
           </button>
 
-          {/* Simple page numbers */}
-          {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) => (
-            <button
-              key={p}
-              onClick={() => goToPage(p)}
-              aria-current={p === currentPage ? 'page' : undefined}
-              className={`px-3 py-1 rounded border ${p === currentPage ? 'bg-blue-100' : ''}`}
-            >
-              {p}
-            </button>
-          ))}
+      
+
+          <p> {currentPage} - {totalPages}</p>
+
+       
 
           <button
             onClick={() => goToPage(currentPage + 1)}

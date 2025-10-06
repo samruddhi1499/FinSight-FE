@@ -28,7 +28,8 @@ async function signupAction(
   const password = (formData.get("password") as string) || "";
   const confirmedPassword = (formData.get("confirmedPassword") as string) || "";
 
-  let errors: { [key: string]: string } = {};
+  // eslint-disable-next-line prefer-const
+  let errors: { [key: string]: string } = {};
 
   if (!isNotEmpty(username)) {
     errors["Username"] = "Username is required";

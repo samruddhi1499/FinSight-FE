@@ -240,7 +240,7 @@ export default function ExpenseTable({
 
       {/* Pagination controls */}
       {expenses && filteredExpenses && filteredExpenses.length > 0 && errorCode === '200' && (
-        <div className="flex items-center justify-center gap-2 mt-4">
+        <div className="flex items-center text-gray-500 justify-center gap-2 mt-4">
           <button
             disabled={currentPage === 1}
             onClick={() => setCurrentPage(1)}
@@ -256,20 +256,7 @@ export default function ExpenseTable({
             Prev
           </button>
 
-          {[...Array(totalPages)].map((_, i) => {
-            const page = i + 1;
-            return (
-              <button
-                key={page}
-                onClick={() => setCurrentPage(page)}
-                className={`px-3 py-1 border rounded ${
-                  page === currentPage ? 'bg-blue-100 font-bold' : ''
-                }`}
-              >
-                {page}
-              </button>
-            );
-          })}
+          <p> {currentPage} - {totalPages}</p>
 
           <button
             disabled={currentPage === totalPages}

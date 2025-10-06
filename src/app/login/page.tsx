@@ -170,12 +170,12 @@ const Login = () => {
 )}
       </div>
 
-      <div className="my-2 flex justify-between gap-2">
+      {/* <div className="my-2 flex justify-between gap-2">
         <div className="grow"></div>
         <div className="text-right">
           <a className="text-indigo-600 dark:text-gray-400 mr-4" href="/forgot-password">Forgot Password?</a>
         </div>
-      </div>
+      </div> */}
 
 
       <button className="lqd-btn group inline-flex items-center justify-center gap-1.5 font-medium rounded-full transition-all hover:-translate-y-0.5 hover:shadow-xl lqd-btn-primary bg-b text-indigo-700 hover:border-indigo-300 border-4 border-indigo-600 bg-gray-200 focus-visible:bg-indigo-700 focus-visible:shadow-indigo-300/10 px-5 py-3" id="LoginhtmlFormButton" type="submit">

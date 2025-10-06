@@ -131,7 +131,7 @@ export default function Register() {
               <div className="text-right text-red-500 pr-2.5 font-bold pt-2.5">{`! ${formState.errors["Confirmed"]}`}</div>
             )}
           </div>
-          {isPending && (
+          {!isPending && (
           <button className="lqd-btn group inline-flex items-center justify-center gap-1.5 font-medium rounded-full transition-all hover:-translate-y-0.5 hover:shadow-xl lqd-btn-primary bg-b text-indigo-700 hover:border-indigo-300 border-4 border-indigo-500 bg-gray-50 focus-visible:bg-indigo-700 focus-visible:shadow-indigo-300/10 px-5 py-3" id="LoginhtmlFormButton" type="submit">
             Sign up
           </button>)}

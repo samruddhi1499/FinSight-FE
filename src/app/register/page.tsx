@@ -1,115 +1,69 @@
 "use client";
 import { isNotEmpty, isEqualToOtherValue, hasMinLength } from "../../util/validation.js"; 
-import { useActionState, useEffect, useState } from "react";
+import { useActionState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
-const endpoint = process.env.NEXT_PUBLIC_API_URL;
-
-// Types
 interface EnteredValues {
   username: string;
   password: string;
   confirmedPassword: string;
 }
-
 interface FormState {
   errors: { [key: string]: string };
   enteredvalues: EnteredValues;
-  isSubmitted: boolean;
-  serverError: string;
+  success: boolean;
+  serverError: string | null;
 }
 
-// Signup action
-async function signupAction(
-  prevFormState: FormState | undefined,
-  formData: FormData
-): Promise<FormState> {
+async function signupAction(prev: FormState | undefined, formData: FormData): Promise<FormState> {
   const username = (formData.get("username") as string) || "";
   const password = (formData.get("password") as string) || "";
   const confirmedPassword = (formData.get("confirmedPassword") as string) || "";
 
-  // eslint-disable-next-line prefer-const
-  let errors: { [key: string]: string } = {};
+  const errors: Record<string,string> = {};
+  if (!isNotEmpty(username)) errors.Username = "Username is required";
+  if (!isNotEmpty(password) || !hasMinLength(password, 6)) errors.Password = "Password must be at least 6 characters long";
+  if (!isEqualToOtherValue(password, confirmedPassword)) errors.Confirmed = "Passwords do not match";
 
-  if (!isNotEmpty(username)) {
-    errors["Username"] = "Username is required";
-  }
-  if (!isNotEmpty(password) || !hasMinLength(password, 6)) {
-    errors["Password"] = "Password must be at least 6 characters long";
-  }
-  if (!isEqualToOtherValue(password, confirmedPassword)) {
-    errors["Confirmed"] = "Passwords do not match";
-  }
-
-  if (Object.keys(errors).length > 0) {
-    return {
-      errors,
-      enteredvalues: { username, password, confirmedPassword },
-      isSubmitted: false,
-      serverError: "",
-    };
+  if (Object.keys(errors).length) {
+    return { errors, enteredvalues: { username, password, confirmedPassword }, success: false, serverError: null };
   }
 
   try {
-    // API call -- replace with your actual endpoint if needed
     const res = await fetch(`/api/Auth/register`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ username, password }),
+      cache: "no-store",
     });
 
-    const data = await res.json();
-
     if (!res.ok) {
-      return {
-        errors: {},
-        enteredvalues: { username, password, confirmedPassword },
-        isSubmitted: false,
-        serverError: data.error || "Signup failed",
-      };
+      let msg = "Signup failed";
+      try { const data = await res.json(); msg = data.error || msg; } catch {}
+      return { errors: {}, enteredvalues: { username, password, confirmedPassword }, success: false, serverError: msg };
     }
 
-    // Success: clear errors and reset form
-    return {
-      errors: {},
-      enteredvalues: { username: "", password: "", confirmedPassword: "" },
-      isSubmitted: true,
-      serverError: "",
-    };
-
-  } catch (e) {
-    return {
-      errors: {},
-      enteredvalues: { username, password, confirmedPassword },
-      isSubmitted: false,
-      serverError: "Network error, please try again.",
-    };
+    return { errors: {}, enteredvalues: { username: "", password: "", confirmedPassword: "" }, success: true, serverError: null };
+  } catch {
+    return { errors: {}, enteredvalues: { username, password, confirmedPassword }, success: false, serverError: "Network error, please try again." };
   }
 }
 
 export default function Register() {
-  const [formStateFromAction, formAction] = useActionState(signupAction, {
+  const router = useRouter();
+  const [formState, formAction] = useActionState<FormState, FormData>(signupAction, {
     errors: { Username: "", Password: "", Confirmed: "" },
     enteredvalues: { username: "", password: "", confirmedPassword: "" },
-    isSubmitted: false,
-    serverError: "",
+    success: false,
+    serverError: null,
   });
 
-  const [formState, setFormState] = useState(formStateFromAction);
-
-  const router = useRouter();
-
-  // Listen for formAction state changes, sync local state
   useEffect(() => {
-    setFormState(formStateFromAction);
-  }, [formStateFromAction]);
-
-  // Redirect if submitted
-  useEffect(() => {
-    if (formState.isSubmitted) {
-      router.push("/login");
+    if (formState.success) {
+      // microtask to avoid synchronous form commit race
+      Promise.resolve().then(() => router.push("/login"));
     }
-  }, [formState.isSubmitted, router]);
+  }, [formState.success, router]);
 
   return (
     <div

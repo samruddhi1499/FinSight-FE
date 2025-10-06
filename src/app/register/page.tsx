@@ -137,7 +137,11 @@ export default function Register() {
           </button>)}
           {isPending && (
             <button type="button" className="lqd-btn group inline-flex items-center justify-center gap-1.5 font-medium rounded-full transition-all hover:-translate-y-0.5 hover:shadow-xl lqd-btn-primary bg-b text-indigo-700 hover:border-indigo-300 border-4 border-indigo-500 bg-gray-50 focus-visible:bg-indigo-700 focus-visible:shadow-indigo-300/10 px-5 py-3" disabled>
-              <svg className="mr-3 size-5 text-indigo-700 animate-spin" viewBox="0 0 24 24"> ...</svg>
+              <svg className="mr-3 w-5 h-5 animate-spin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
+</svg>
+
   Processing…
 </button>
           )}

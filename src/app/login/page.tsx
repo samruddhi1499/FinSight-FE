@@ -97,7 +97,7 @@ async function signinAction(
 
 const Login = () => {
 
-    const [formState, formAction] = useActionState(signinAction, {
+    const [formState, formAction, isPending] = useActionState(signinAction, {
       errors:{"Username" : "", "Password":""} ,
       enteredvalues: { username: "", password: ""}, 
       detailsExisits: false
@@ -177,10 +177,17 @@ const Login = () => {
         </div>
       </div> */}
 
-
+{!isPending && 
       <button className="lqd-btn group inline-flex items-center justify-center gap-1.5 font-medium rounded-full transition-all hover:-translate-y-0.5 hover:shadow-xl lqd-btn-primary bg-b text-indigo-700 hover:border-indigo-300 border-4 border-indigo-600 bg-gray-200 focus-visible:bg-indigo-700 focus-visible:shadow-indigo-300/10 px-5 py-3" id="LoginhtmlFormButton" type="submit">
         Sign in
       </button>
+}
+        {isPending && (
+            <button type="button" className="bg-indigo-500 ..." disabled>
+              <svg className="mr-3 size-5 animate-spin ..." viewBox="0 0 24 24"/>
+  Processing…
+</button>
+          )}
     </form>
     <div className="mt-10 font-medium dark:text-gray-100">
       Dont have an account yet?

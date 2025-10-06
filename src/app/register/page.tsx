@@ -1,6 +1,6 @@
 "use client";
 import { isNotEmpty, isEqualToOtherValue, hasMinLength } from "../../util/validation.js"; 
-import { useActionState, useEffect } from "react";
+import { useActionState, useEffect, useState} from "react";
 import { useRouter } from "next/navigation";
 
 interface EnteredValues {
@@ -16,6 +16,8 @@ interface FormState {
 }
 
 async function signupAction(prev: FormState | undefined, formData: FormData): Promise<FormState> {
+
+  
   const username = (formData.get("username") as string) || "";
   const password = (formData.get("password") as string) || "";
   const confirmedPassword = (formData.get("confirmedPassword") as string) || "";
@@ -52,7 +54,7 @@ async function signupAction(prev: FormState | undefined, formData: FormData): Pr
 
 export default function Register() {
   const router = useRouter();
-  const [formState, formAction] = useActionState<FormState, FormData>(signupAction, {
+  const [formState, formAction, isPending] = useActionState<FormState, FormData>(signupAction, {
     errors: { Username: "", Password: "", Confirmed: "" },
     enteredvalues: { username: "", password: "", confirmedPassword: "" },
     success: false,
@@ -65,6 +67,8 @@ export default function Register() {
       Promise.resolve().then(() => router.push("/login"));
     }
   }, [formState.success, router]);
+
+
 
   return (
     <div
@@ -127,9 +131,16 @@ export default function Register() {
               <div className="text-right text-red-500 pr-2.5 font-bold pt-2.5">{`! ${formState.errors["Confirmed"]}`}</div>
             )}
           </div>
+          {!isPending &&
           <button className="lqd-btn group inline-flex items-center justify-center gap-1.5 font-medium rounded-full transition-all hover:-translate-y-0.5 hover:shadow-xl lqd-btn-primary bg-b text-indigo-700 hover:border-indigo-300 border-4 border-indigo-500 bg-gray-50 focus-visible:bg-indigo-700 focus-visible:shadow-indigo-300/10 px-5 py-3" id="LoginhtmlFormButton" type="submit">
             Sign up
-          </button>
+          </button>}
+          {isPending && (
+            <button type="button" className="bg-indigo-500 ..." disabled>
+              <svg className="mr-3 size-5 animate-spin ..." viewBox="0 0 24 24"/>
+  Processing…
+</button>
+          )}
         </form>
         <div className="mt-10 text-gray-600 dark:text-gray-400">
           Already a member?

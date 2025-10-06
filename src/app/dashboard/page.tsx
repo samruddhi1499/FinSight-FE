@@ -7,7 +7,6 @@ import MonthlySavingsLineChart from '@/app/ui/dashboard/MonthlySavingsLineChart'
 import SavingsGoalProgressChart from '@/app/ui/dashboard/SavingsGoalProgressChart';
 import ExceededCapsList from '@/app/ui/dashboard/ExceededCapsList';
 import ExpenseCategoryBarChart from '@/app/ui/dashboard/ExpenseCategoryBarChart';
-import { Suspense } from 'react';
 import { RevenueChartSkeleton, CardsSkeleton } from '@/app/ui/dashboard/Skeleton';
 
 export interface cardDataType {

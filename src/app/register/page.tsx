@@ -38,7 +38,8 @@ async function signupAction(prev: FormState | undefined, formData: FormData): Pr
     });
 
     if (!res.ok) {
-      let msg = "Signup failed";
+      let msg = await res.text();
+
       try { const data = await res.json(); msg = data.error || msg; } catch {}
       return { errors: {}, enteredvalues: { username, password, confirmedPassword }, success: false, serverError: msg };
     }

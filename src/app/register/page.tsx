@@ -78,12 +78,13 @@ async function signupAction(
     
 
     // Success: clear errors and maybe reset form or redirect later
-    return {
-      errors: {},
-      enteredvalues: { username: "", password: "", confirmedPassword: "" },
-      isSubmitted: true,
-      serverError: "",
-    };
+return {
+  errors: {},
+  enteredvalues: { username: "", password: "", confirmedPassword: "" },
+  isSubmitted: true,
+  serverError: "",
+};
+
   } catch (e) {
     return {
       errors: {},
@@ -100,15 +101,18 @@ export default function Register () {
 
 
 const [formState, formAction] = useActionState(signupAction, {
-  errors:{"Username" : "", "Password":"", "Confirmed" : ""} ,
-  enteredvalues: { username: "", password: "", confirmedPassword: "" }
+  errors: {"Username": "", "Password": "", "Confirmed": ""} ,
+  enteredvalues: { username: "", password: "", confirmedPassword: "" },
+  isSubmitted: false,
+  serverError: ""
 });
+
 
   const router = useRouter();
 
   useEffect(() => {
     if (formState.isSubmitted) {
-      router.push("/login");
+      setTimeout(() => router.push("/login"), 100);
     }
   }, [formState.isSubmitted, router]);
 

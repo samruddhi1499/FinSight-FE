@@ -109,6 +109,8 @@ const [formState, formAction] = useActionState(signupAction, {
 
 
   const router = useRouter();
+  console.log("formState", formState);
+
 
   useEffect(() => {
     if (formState.isSubmitted) {
@@ -126,7 +128,7 @@ return(
   <div className="w-full max-w-lg p-10 text-center text-xs bg-white/10 rounded-2xl shadow-lg">
     <h1 className="mb-8 text-2xl font-bold text-gray-800 dark:text-white">New Here?...Come Join Us!</h1>
     <p className="mb-6 text-gray-600 dark:text-gray-50">Create an account to access our amazing features.</p>
-    <form className="flex flex-col gap-6" action={formAction}>
+    <form className="flex flex-col gap-6" action={formAction} method="post">
     
 
       <div className="relative">

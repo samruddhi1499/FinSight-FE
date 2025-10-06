@@ -1,6 +1,6 @@
 "use client";
 import { isNotEmpty, isEqualToOtherValue, hasMinLength } from "../../util/validation.js"; 
-import { useActionState, useEffect } from "react";
+import { useActionState, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
 
@@ -100,12 +100,14 @@ export default function Register () {
 
 
 
-const [formState, formAction] = useActionState(signupAction, {
+const [formStateFromAction, formAction] = useActionState(signupAction, {
   errors: {"Username": "", "Password": "", "Confirmed": ""} ,
   enteredvalues: { username: "", password: "", confirmedPassword: "" },
   isSubmitted: false,
   serverError: ""
 });
+
+ const [formState, setFormState] = useState(formStateFromAction);
 
 
   const router = useRouter();
@@ -113,8 +115,13 @@ const [formState, formAction] = useActionState(signupAction, {
 
 
   useEffect(() => {
+    setFormState(formStateFromAction);
+  }, [formStateFromAction]);
+
+  // Redirect if submitted
+  useEffect(() => {
     if (formState.isSubmitted) {
-      setTimeout(() => router.push("/login"), 100);
+      router.push("/login");
     }
   }, [formState.isSubmitted, router]);
 

@@ -122,8 +122,8 @@ export default function ExpenseTable({
                 >
                   {exp.category}
                 </th>
-                <td className="px-6 py-4 text-gray-500 text-center">{`$${exp.totalAmount}`}</td>
-                <td className="px-6 py-4 text-gray-500 text-center">{`$${exp.capAmount}`}</td>
+                <td className="px-6 py-4 text-gray-500 text-center">{`$${exp.totalAmount.toFixed(2)}`}</td>
+                <td className="px-6 py-4 text-gray-500 text-center">{`$${exp.capAmount.toFixed(2)}`}</td>
                 <td
                   className={`px-6 py-4 text-center ${
                     exp.isOverBudget === 'Over' ? 'text-red-500' : 'text-green-500'
@@ -175,7 +175,7 @@ export default function ExpenseTable({
                   <td className="px-6 py-4 text-gray-500 text-center">{`${exp.expenseDate}`}</td>
 
                   {!isEditing && (
-                    <td className="px-6 py-4 text-gray-500 text-center">{`$${exp.amount}`}</td>
+                    <td className="px-6 py-4 text-gray-500 text-center">{`$${exp.amount.toFixed(2)}`}</td>
                   )}
 
                   {isEditing && (

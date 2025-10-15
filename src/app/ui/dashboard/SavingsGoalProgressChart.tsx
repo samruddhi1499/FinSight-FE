@@ -70,7 +70,7 @@ export default function SavingsGoalProgressChart({ monthlyGoalData }: Props) {
           </div>
         )}
         <div className="text-gray-600">Goal: ${monthlyGoalData.goal.toFixed(2)}</div>
-        <div className="text-gray-600">Current Savings: ${Math.abs(monthlyGoalData.currentSavings).toFixed(2)}</div>
+        <div className="text-gray-600">Current Savings: ${monthlyGoalData.currentSavings.toFixed(2)}</div>
       </div>
     </div>
   );

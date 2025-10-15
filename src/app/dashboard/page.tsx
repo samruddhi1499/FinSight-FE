@@ -21,7 +21,8 @@ export interface monthlySavingsLineDataType {
 
 export interface monthlyGoalDataType {
   goal:number,
-  current:number
+  current:number,
+  currentSavings: number
 }
 
 export interface monthlyExceedDataType{
@@ -43,7 +44,8 @@ export default function DashboardPage() {
   const [monthlySavingsLineData, setMonthlySavingsLineData] = useState<monthlySavingsLineDataType[]>([]);
   const [monthlyGoalData, setMonthlyGoalData] = useState<monthlyGoalDataType>({
     goal: 0.0,
-    current : 0.0
+    current : 0.0,
+    currentSavings: 0.0
   });
   const [monthlyExceedData, setMonthlyExceedData] = useState<monthlyExceedDataType[]>([]);
   const [monthlyExpsneByCategoryData, setMonthlyExpsneByCategoryData] = useState<MonthlyExpensesByCategory>({});

@@ -53,6 +53,7 @@ export default function SavingsGoalProgressChart({ monthlyGoalData }: Props) {
         {monthlyGoalData.current < 0 && <div className="text-gray-600">Exceeded By: ${Math.abs(monthlyGoalData.current)}</div>}
         {monthlyGoalData.current > 0 && <div className="text-gray-600">Remaining: ${remaining.toFixed(2)}</div>}
         <div className="text-gray-600">Goal: ${monthlyGoalData.goal.toFixed(2)}</div>
+        <div className="text-gray-600">Current Savings: ${monthlyGoalData.currentSavings.toFixed(2)}</div>
       </div>
     </div>
   );

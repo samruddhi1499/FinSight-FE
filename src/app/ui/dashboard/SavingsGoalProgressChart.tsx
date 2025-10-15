@@ -17,7 +17,7 @@ export default function SavingsGoalProgressChart({ monthlyGoalData }: Props) {
   const percent = Math.min(Math.max(Math.round(rawPercent), 0), 100);
 
   const strokeDashoffset = circumference * (1 - percent / 100);
-  const remaining = Math.max(monthlyGoalData.goal - monthlyGoalData.current, 0);
+  const remaining = monthlyGoalData.goal - monthlyGoalData.current;
 
   const strokeColor = monthlyGoalData.current < 0 ? '#e53e3e' : '#38b2ac'; // red if negative current
 

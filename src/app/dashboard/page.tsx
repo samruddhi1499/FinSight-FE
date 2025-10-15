@@ -69,7 +69,8 @@ export default function DashboardPage() {
           setMonthlyGoalData(prev => ({
             ...prev,
             goal: data.monthlyGoalResult.goal,
-            current: data.monthlyGoalResult.current
+            current: data.monthlyGoalResult.current,
+            currentSavings:data.monthlyGoalResult.currentSavings
           }));
           setMonthlyExceedData(data.monthlyExceedResult);
           setMonthlyExpsneByCategoryData(data.monthlyExpsneByCategoryResult);

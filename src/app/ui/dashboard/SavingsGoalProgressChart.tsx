@@ -24,7 +24,7 @@ export default function SavingsGoalProgressChart({ monthlyGoalData }: Props) {
   return (
     <div className="rounded-xl text-stone-600 bg-gray-50 p-4 shadow-sm">
       <div className="bg-white shadow-lg rounded-xl h-full p-6 flex flex-col items-center justify-center">
-        <h2 className="text-xl font-bold mb-4">Monthly Goal Completion</h2>
+        <h2 className="text-xl font-bold mb-4">Monthly Expense Completion</h2>
         <div className="relative flex items-center justify-center w-40 h-40 my-4">
           <svg className="w-full h-full" viewBox="0 0 100 100">
             <circle
@@ -50,8 +50,8 @@ export default function SavingsGoalProgressChart({ monthlyGoalData }: Props) {
           </svg>
           <span className="absolute text-3xl font-semibold">{percent}%</span>
         </div>
-        {monthlyGoalData.current < 0 && <div className="text-gray-600">Exceeded By: ${Math.abs(monthlyGoalData.current)}</div>}
-        {monthlyGoalData.current > 0 && <div className="text-gray-600">Remaining: ${remaining.toFixed(2)}</div>}
+        {remaining > 0 && <div className="text-gray-600">Current Expense: ${Math.abs(monthlyGoalData.current)}</div>}
+        {remaining < 0 && <div className="text-gray-600">Exceeded Expense: ${remaining.toFixed(2)}</div>}
         <div className="text-gray-600">Goal: ${monthlyGoalData.goal.toFixed(2)}</div>
         <div className="text-gray-600">Current Savings: ${monthlyGoalData.currentSavings.toFixed(2)}</div>
       </div>

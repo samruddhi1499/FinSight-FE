@@ -21,7 +21,7 @@ export default function MonthlySavingsLineChart({monthlySavingsLineData}:Props) 
           <XAxis dataKey="month" />
           <YAxis />
           <Tooltip />
-          <Line type="monotone" dataKey="saving" stroke="#3182ce" strokeWidth={3} />
+          <Line type="monotone" dataKey="savings" stroke="#3182ce" strokeWidth={3} />
         </LineChart>
       </ResponsiveContainer>
     </div>
